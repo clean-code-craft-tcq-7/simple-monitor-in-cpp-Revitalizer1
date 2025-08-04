@@ -12,7 +12,6 @@ enum class VitalStatus { OK, LOW, HIGH };
 struct VitalRange {
     float low;
     float high;
-    std::string name;
 };
 
 VitalStatus checkRange(float value, const VitalRange& range) {
@@ -23,17 +22,17 @@ VitalStatus checkRange(float value, const VitalRange& range) {
 
 // Separate functions for each vital check
 VitalStatus checkTemperature(float temperature) {
-    const VitalRange tempRange{95.0f, 102.0f, "Temperature"};
+    const VitalRange tempRange{95.0f, 102.0f};
     return checkRange(temperature, tempRange);
 }
 
 VitalStatus checkPulseRate(float pulseRate) {
-    const VitalRange pulseRange{60.0f, 100.0f, "Pulse Rate"};
+    const VitalRange pulseRange{60.0f, 100.0f};
     return checkRange(pulseRate, pulseRange);
 }
 
 VitalStatus checkSpO2(float spo2) {
-    const VitalRange spo2Range{90.0f, 150.0f, "Oxygen Saturation"};
+    const VitalRange spo2Range{90.0f, 150.0f};
     return checkRange(spo2, spo2Range);
 }
 
