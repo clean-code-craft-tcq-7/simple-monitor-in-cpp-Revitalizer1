@@ -42,7 +42,7 @@ TEST(Monitor, SpO2Edge) {
 }
 
 TEST(Monitor, SpO2High) {
-    ASSERT_TRUE(vitalsOk(98, 80, 151.0)); // High SpO2 is not critical in current logic
+    ASSERT_FALSE(vitalsOk(98, 80, 151.0));
 }
 
 TEST(Monitor, AllVitalsNormal) {
