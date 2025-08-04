@@ -48,32 +48,20 @@ void blinkAlert(const std::string& message, int blinks = 6) {
     cout << "\n";
 }
 
+bool checkVitalAndAlert(VitalStatus status, const std::string& vitalName) {
+    if (status == VitalStatus::LOW) {
+        blinkAlert(vitalName + " is too low!");
+        return false;
+    }
+    if (status == VitalStatus::HIGH) {
+        blinkAlert(vitalName + " is out of range!");
+        return false;
+    }
+    return true;
+}
+
 int vitalsOk(float temperature, float pulseRate, float spo2) {
-    VitalStatus tempStatus = checkTemperature(temperature);
-    if (tempStatus == VitalStatus::LOW) {
-        blinkAlert("Temperature is too low!");
-        return 0;
-    }
-    if (tempStatus == VitalStatus::HIGH) {
-        blinkAlert("Temperature is critical!");
-        return 0;
-    }
-
-    VitalStatus pulseStatus = checkPulseRate(pulseRate);
-    if (pulseStatus == VitalStatus::LOW) {
-        blinkAlert("Pulse Rate is too low!");
-        return 0;
-    }
-    if (pulseStatus == VitalStatus::HIGH) {
-        blinkAlert("Pulse Rate is out of range!");
-        return 0;
-    }
-
-    VitalStatus spo2Status = checkSpO2(spo2);
-    if (spo2Status == VitalStatus::LOW) {
-        blinkAlert("Oxygen Saturation out of range!");
-        return 0;
-    }
-
-    return 1;
+    return checkVitalAndAlert(checkTemperature(temperature), "Temperature") &&
+           checkVitalAndAlert(checkPulseRate(pulseRate), "Pulse Rate") &&
+           checkVitalAndAlert(checkSpO2(spo2), "Oxygen Saturation");
 }
